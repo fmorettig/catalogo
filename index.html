@@ -223,12 +223,35 @@
                     <p id="modal-description" class="modal-description">Descripción del producto...</p>
                     <div class="modal-price" id="modal-price">$ 0</div>
 
-                    <button class="btn-add-cart" id="modal-add-btn">Agregar a consulta</button>
+                    <button class="btn-add-cart" id="modal-add-btn">Agregar al Carrito</button>
                 </div>
             </div>
         </div>
     </div>
+<!-- MODAL DE RESUMEN DEL CARRITO -->
+<div class="product-modal-backdrop" id="cart-modal">
+    <div class="product-modal-content cart-modal-content">
+        <button class="btn-close-modal" id="btn-close-cart-modal">&times;</button>
 
+        <div class="cart-modal-body">
+            <h2>Tu Carrito</h2>
+            
+            <div class="cart-items-list" id="cart-items-container">
+                <!-- Se llena dinámicamente desde JS -->
+            </div>
+
+            <div class="cart-summary-footer">
+                <div class="cart-total-row">
+                    <span>Total Estimado:</span>
+                    <strong id="cart-total-price">$ 0</strong>
+                </div>
+                <button class="btn-add-cart btn-send-whatsapp" id="btn-confirm-whatsapp">
+                    Enviar consulta por WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>
