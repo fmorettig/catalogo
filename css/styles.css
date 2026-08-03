@@ -1,0 +1,711 @@
+/* ==========================================================================
+   VARIABLES GLOBALES Y RESET
+   ========================================================================== */
+:root {
+  --primary: #0284c7;
+  --primary-hover: #0369a1;
+  --whatsapp: #075e54;
+  --whatsapp-hover: #128c7e;
+  
+  --bg-app: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  
+  --status-available: #10b981;
+  --status-unavailable: #ef4444;
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  padding-bottom: 75px; /* Espacio para el nav de celular */
+}
+
+/* ==========================================================================
+   HEADER / ENCABEZADO
+   ========================================================================== */
+.header {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-logo {
+  background-color: #e0f2fe;
+  color: var(--primary);
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  display: flex;
+}
+
+.brand-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.brand-tagline {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.btn-cart-header {
+  display: none; /* Se activa en Desktop */
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cart-header:hover {
+  background-color: var(--primary-hover);
+}
+
+.badge-count {
+  background-color: white;
+  color: var(--primary);
+  border-radius: 999px;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.75rem;
+}
+
+/* ==========================================================================
+   LAYOUT MÓVIL (MOBILE-FIRST)
+   ========================================================================== */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.sidebar {
+  display: none; /* Oculto por defecto en celular */
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  height: fit-content;
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.category-list {
+  list-style: none;
+}
+
+.category-list li {
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.category-list li.active, .category-list li:hover {
+  background-color: #f1f5f9;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   CONTROLES Y BUSCADOR
+   ========================================================================== */
+.controls-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.8rem;
+  gap: 0.5rem;
+}
+
+.search-icon {
+  stroke: var(--text-muted);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.select-filters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.select-filters select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   GRID DE PRODUCTOS
+   ========================================================================== */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas en celular */
+  gap: 0.75rem;
+}
+
+.product-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.product-image-container {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  background-color: #f1f5f9;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.product-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.product-variant {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.product-price-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 0.25rem;
+}
+
+.product-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.status-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-badge.available .dot { background-color: var(--status-available); }
+.status-badge.available { color: var(--status-available); }
+
+.status-badge.unavailable .dot { background-color: var(--status-unavailable); }
+.status-badge.unavailable { color: var(--status-unavailable); }
+
+.btn-add-cart {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.4rem;
+  background-color: var(--bg-app);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-add-cart:hover:not(:disabled) {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-add-cart:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   CARRITO FLOTANTE MÓVIL
+   ========================================================================== */
+.floating-cart-bar {
+  position: fixed;
+  bottom: 65px;
+  left: 1rem;
+  right: 1rem;
+  z-index: 90;
+}
+
+.btn-whatsapp-cart {
+  width: 100%;
+  background-color: var(--whatsapp);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px 0 rgba(7, 94, 84, 0.39);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   BARRA DE NAVEGACIÓN INFERIOR (CELULAR)
+   ========================================================================== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+.nav-item.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (ADAPTACIÓN A ESCRITORIO / DESKTOP)
+   ========================================================================== */
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0; /* Sin bottom nav en escritorio */
+  }
+
+  .bottom-nav, .floating-cart-bar, .mobile-only-select {
+    display: none; /* Ocultar elementos móviles */
+  }
+
+  .btn-cart-header {
+    display: flex; /* Mostrar botón de carrito arriba */
+  }
+
+  .app-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr; /* Layout en 2 columnas */
+    gap: 1.5rem;
+    padding: 2rem 1rem;
+  }
+
+  .sidebar {
+    display: block; /* Mostrar barra lateral de filtros */
+  }
+
+  .controls-bar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .search-box {
+    width: 320px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Re-ordenamiento responsive */
+    gap: 1.25rem;
+  }
+
+  .product-title {
+    font-size: 0.95rem;
+  }
+
+  .product-price-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+
+/* ==========================================================================
+   BARRA DE CONTROLES
+   ========================================================================== */
+.controls-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.55rem 0.8rem;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.search-icon {
+  stroke: var(--text-muted);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  background: transparent;
+}
+
+.controls-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.control-select {
+  flex: 1;
+  min-width: 140px;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Selector Vista Cuadrícula / Lista */
+.view-toggle {
+  display: flex;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2px;
+  gap: 2px;
+}
+
+.btn-view {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-view stroke {
+  stroke: var(--text-muted);
+}
+
+.btn-view.active {
+  background-color: #f1f5f9;
+  color: var(--primary);
+}
+
+.btn-view.active svg {
+  stroke: var(--primary);
+}
+
+.desktop-only {
+  display: none;
+}
+
+/* ==========================================================================
+   VISTA EN LISTA (Se activa asignando la clase .list-view a #products-container)
+   ========================================================================== */
+.products-grid.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.products-grid.list-view .product-card {
+  flex-direction: row;
+  align-items: center;
+}
+
+.products-grid.list-view .product-image-container {
+  width: 110px;
+  height: 110px;
+  min-width: 110px;
+}
+
+.products-grid.list-view .product-info {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.products-grid.list-view .product-price-row {
+  margin-top: 0;
+  align-items: flex-end;
+}
+
+/* Media Query para Pantallas Medianas y Grandes */
+@media (min-width: 768px) {
+  .controls-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .desktop-only {
+    display: inline;
+  }
+
+  .control-select {
+    flex: initial;
+    width: auto;
+  }
+}
+
+/* ==========================================================================
+   MODAL DE DETALLE DE PRODUCTO Y CARRUSEL
+   ========================================================================== */
+.product-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.product-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.product-modal-content {
+  background: var(--bg-card, #fff);
+  width: 100%;
+  max-width: 650px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.btn-close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 10;
+  color: #666;
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .modal-body {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Carrusel */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-track img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.carousel-btn.prev { left: 8px; }
+.carousel-btn.next { right: 8px; }
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.dot-item {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.dot-item.active {
+  background: var(--primary, #2563eb);
+}
+
+/* Info Modal */
+.modal-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-title { font-size: 1.25rem; margin: 0.5rem 0 0.2rem; }
+.modal-variant { color: #64748b; font-size: 0.9rem; margin-bottom: 0.8rem; }
+.modal-description { font-size: 0.85rem; color: #475569; margin-bottom: 1rem; }
+.modal-price { font-size: 1.4rem; font-weight: bold; margin-bottom: 1rem; }
