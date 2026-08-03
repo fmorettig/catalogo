@@ -2,30 +2,33 @@
 // CONFIGURACIÓN E INICIALIZACIÓN
 // ==========================================================================
 
-// URL de tu Google Sheet publicado como CSV
+// Pega aquí tu URL en formato CSV
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaTj12PhheXARdsYg3DggvqxhmGQ3MTJHpYsirLxbY3ppt_NOHtG9524MN8FQc-iaY6MNZASl_hQcW/pub?output=csv";
 
-let productsData = []; // Guardará los productos parseados del Sheets
-let currentImages = []; // Para el manejo del carrusel del modal
+// Número de WhatsApp al que llegará la consulta (incluye código de país sin el '+')
+const WHATSAPP_NUMBER = "584145045002"; 
+
+let productsData = []; 
+let cart = []; // Estructura: [{ product: {...}, quantity: N }]
+
+let currentImages = [];
 let currentImageIndex = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Catálogo inicializado.");
+  console.log("Catálogo e interfaz inicializados.");
 
-  // 1. Cargar datos del Sheets
   loadProductsFromSheet();
-
-  // 2. Escuchadores de interfaz (Vistas, Modal, Filtros)
   setupViewToggle();
   setupModalEvents();
   setupFilterEvents();
+  setupCartEvents();
 });
 
 // ==========================================================================
-// 1. CARGA DE DATOS DESDE GOOGLE SHEETS (PAPAPARSE)
+// 1. CARGA DE DATOS DESDE GOOGLE SHEETS
 // ==========================================================================
 function loadProductsFromSheet() {
-  if (!SHEET_CSV_URL || SHEET_CSV_URL.includes("PEGA_AQUI")) {
+  if (!SHEET_CSV_URL || SHEET_CSV_URL.includes("TU_ENLACE")) {
     console.warn("Por favor agrega una URL válida de Google Sheets CSV.");
     return;
   }
@@ -35,9 +38,8 @@ function loadProductsFromSheet() {
     header: true,
     skipEmptyLines: true,
     complete: (results) => {
-      // Mapeo y saneamiento de los datos del CSV
       productsData = results.data.map((item) => ({
-        id: item.id || Math.random().toString(),
+        id: String(item.id || Math.random()),
         nombre: item.nombre || "Producto sin nombre",
         categoria: (item.categoria || "otros").toLowerCase().trim(),
         precio: parseFloat(item.precio) || 0,
@@ -49,7 +51,6 @@ function loadProductsFromSheet() {
         variante: item.variante || "",
       }));
 
-      // Renderizar productos en pantalla
       renderProducts(productsData);
     },
     error: (err) => console.error("Error al cargar Google Sheets:", err),
@@ -57,14 +58,14 @@ function loadProductsFromSheet() {
 }
 
 // ==========================================================================
-// 2. RENDERIZADO DINÁMICO DE PRODUCTOS
+// 2. RENDERIZADO DE PRODUCTOS
 // ==========================================================================
 function renderProducts(products) {
   const container = document.getElementById("products-container");
   if (!container) return;
 
   if (products.length === 0) {
-    container.innerHTML = `<p class="no-results">No se encontraron productos en esta búsqueda.</p>`;
+    container.innerHTML = `<p class="no-results">No se encontraron productos.</p>`;
     return;
   }
 
@@ -92,7 +93,7 @@ function renderProducts(products) {
               <span class="dot"></span> ${isAvailable ? "Disponible" : "Agotado"}
             </span>
           </div>
-          <button class="btn-add-cart" ${!isAvailable ? "disabled" : ""}>
+          <button class="btn-add-cart" ${!isAvailable ? "disabled" : ""} data-action="add-cart">
             ${isAvailable ? "Agregar a consulta" : "Agotado"}
           </button>
         </div>
@@ -103,7 +104,101 @@ function renderProducts(products) {
 }
 
 // ==========================================================================
-// 3. ALTERNADOR DE VISTA (CUADRÍCULA / LISTA)
+// 3. LÓGICA DEL CARRITO DE COMPRAS Y WHATSAPP
+// ==========================================================================
+function setupCartEvents() {
+  const container = document.getElementById("products-container");
+  const modalAddBtn = document.getElementById("modal-add-btn");
+  const btnWhatsappMobile = document.querySelector(".btn-whatsapp-cart");
+  const btnCartDesktop = document.getElementById("btn-cart-desktop");
+
+  // Click en "Agregar" desde las tarjetas
+  container?.addEventListener("click", (e) => {
+    const btn = e.target.closest('[data-action="add-cart"]');
+    if (!btn) return;
+
+    const card = btn.closest(".product-card");
+    if (!card) return;
+
+    const productId = card.dataset.id;
+    addToCart(productId);
+  });
+
+  // Click en "Agregar" desde el modal
+  modalAddBtn?.addEventListener("click", () => {
+    const productId = modalAddBtn.dataset.id;
+    if (productId) addToCart(productId);
+  });
+
+  // Botones para enviar la consulta por WhatsApp
+  btnWhatsappMobile?.addEventListener("click", sendCartToWhatsApp);
+  btnCartDesktop?.addEventListener("click", sendCartToWhatsApp);
+}
+
+function addToCart(productId) {
+  const product = productsData.find((p) => p.id === productId);
+  if (!product || !product.disponible) return;
+
+  const existingItem = cart.find((item) => item.product.id === productId);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ product, quantity: 1 });
+  }
+
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  const cartCountDesktop = document.getElementById("cart-count");
+  const cartCountMobile = document.getElementById("mobile-cart-count");
+
+  if (cartCountDesktop) cartCountDesktop.innerText = totalItems;
+  if (cartCountMobile) cartCountMobile.innerText = totalItems;
+}
+
+function sendCartToWhatsApp() {
+  if (cart.length === 0) {
+    alert("Tu carrito está vacío. Agrega productos para realizar una consulta.");
+    return;
+  }
+
+  let message = "¡Hola! Quisiera consultar la disponibilidad e información de los siguientes productos:\n\n";
+
+  let total = 0;
+  cart.forEach((item, index) => {
+    const subtotal = item.product.precio * item.quantity;
+    total += subtotal;
+    const formattedSubtotal = new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      maximumFractionDigits: 0,
+    }).format(subtotal);
+
+    message += `${index + 1}. *${item.product.nombre}* (${item.product.variante})\n`;
+    message += `   Cantidad: ${item.quantity} | Subtotal: ${formattedSubtotal}\n\n`;
+  });
+
+  const formattedTotal = new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(total);
+
+  message += `*Total estimado:* ${formattedTotal}\n\n`;
+  message += "Quedo atento a su respuesta, ¡gracias!";
+
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+  window.open(whatsappUrl, "_blank");
+}
+
+// ==========================================================================
+// 4. ALTERNADOR DE VISTAS (CUADRÍCULA / LISTA)
 // ==========================================================================
 function setupViewToggle() {
   const btnGrid = document.getElementById("btn-grid-view");
@@ -124,7 +219,7 @@ function setupViewToggle() {
 }
 
 // ==========================================================================
-// 4. BÚSQUEDA, FILTROS Y ORDENAMIENTO
+// 5. BÚSQUEDA Y FILTROS
 // ==========================================================================
 function setupFilterEvents() {
   const searchInput = document.getElementById("search-input");
@@ -134,7 +229,6 @@ function setupFilterEvents() {
   const applyFilters = () => {
     let filtered = [...productsData];
 
-    // Búsqueda por texto
     const query = searchInput?.value.toLowerCase().trim() || "";
     if (query) {
       filtered = filtered.filter(
@@ -144,13 +238,11 @@ function setupFilterEvents() {
       );
     }
 
-    // Filtrado por categoría
     const cat = selectCategory?.value || "all";
     if (cat !== "all") {
       filtered = filtered.filter((p) => p.categoria === cat.toLowerCase());
     }
 
-    // Ordenamiento
     const sortVal = sortBy?.value;
     if (sortVal === "name-asc") filtered.sort((a, b) => a.nombre.localeCompare(b.nombre));
     if (sortVal === "name-desc") filtered.sort((a, b) => b.nombre.localeCompare(a.nombre));
@@ -166,16 +258,15 @@ function setupFilterEvents() {
 }
 
 // ==========================================================================
-// 5. MODAL DE DETALLE Y CARRUSEL
+// 6. MODAL Y CARRUSEL
 // ==========================================================================
 function setupModalEvents() {
   const container = document.getElementById("products-container");
   const modal = document.getElementById("product-modal");
   const btnClose = document.getElementById("btn-close-modal");
 
-  // Abrir modal al hacer clic en una tarjeta
   container?.addEventListener("click", (e) => {
-    if (e.target.closest(".btn-add-cart")) return; // Si fue clic en el botón de agregar, ignorar
+    if (e.target.closest('[data-action="add-cart"]')) return;
 
     const card = e.target.closest(".product-card");
     if (!card) return;
@@ -185,13 +276,11 @@ function setupModalEvents() {
     if (product) openProductModal(product);
   });
 
-  // Cerrar modal
   btnClose?.addEventListener("click", () => modal.classList.remove("active"));
   modal?.addEventListener("click", (e) => {
     if (e.target === modal) modal.classList.remove("active");
   });
 
-  // Navegación de carrusel
   document.getElementById("carousel-prev")?.addEventListener("click", () => changeSlide(-1));
   document.getElementById("carousel-next")?.addEventListener("click", () => changeSlide(1));
 }
@@ -211,6 +300,8 @@ function openProductModal(product) {
   const statusBadge = document.getElementById("modal-status");
   const addBtn = document.getElementById("modal-add-btn");
 
+  addBtn.dataset.id = product.id;
+
   if (product.disponible) {
     statusBadge.className = "status-badge available";
     statusBadge.innerText = "Disponible";
@@ -223,7 +314,6 @@ function openProductModal(product) {
     addBtn.innerText = "Agotado";
   }
 
-  // Cargar imágenes en el carrusel
   currentImages = product.imagenes.length ? product.imagenes : ["https://via.placeholder.com/300"];
   currentImageIndex = 0;
 
