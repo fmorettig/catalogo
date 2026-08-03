@@ -1,27 +1,25 @@
 /* ==========================================================================
-   1. VARIABLES GLOBALES Y RESET
+   VARIABLES GLOBALES Y RESET
    ========================================================================== */
 :root {
   --primary: #0284c7;
   --primary-hover: #0369a1;
-  --accent-teal: #0d8a8a;
-  --accent-teal-hover: #0b7373;
   --whatsapp: #075e54;
   --whatsapp-hover: #128c7e;
-
+  
   --bg-app: #f8fafc;
   --bg-card: #ffffff;
   --text-main: #0f172a;
   --text-muted: #64748b;
   --border: #e2e8f0;
-
+  
   --status-available: #10b981;
   --status-unavailable: #ef4444;
-
+  
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
-
+  
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1);
@@ -37,11 +35,11 @@
 body {
   background-color: var(--bg-app);
   color: var(--text-main);
-  padding-bottom: 75px; /* Espacio para el nav movil */
+  padding-bottom: 75px; /* Espacio para el nav de celular */
 }
 
 /* ==========================================================================
-   2. HEADER / ENCABEZADO
+   HEADER / ENCABEZADO
    ========================================================================== */
 .header {
   background-color: var(--bg-card);
@@ -112,7 +110,7 @@ body {
 }
 
 /* ==========================================================================
-   3. LAYOUT GENERAL Y SIDEBAR
+   LAYOUT MÓVIL (MOBILE-FIRST)
    ========================================================================== */
 .app-layout {
   display: flex;
@@ -124,7 +122,7 @@ body {
 }
 
 .sidebar {
-  display: none; /* Oculto en móvil */
+  display: none; /* Oculto por defecto en celular */
   background-color: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -156,21 +154,20 @@ body {
   cursor: pointer;
 }
 
-.category-list li.active, 
-.category-list li:hover {
+.category-list li.active, .category-list li:hover {
   background-color: #f1f5f9;
   color: var(--primary);
   font-weight: 600;
 }
 
 /* ==========================================================================
-   4. BARRA DE CONTROLES Y BUSCADOR
+   CONTROLES Y BUSCADOR
    ========================================================================== */
 .controls-bar {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .search-box {
@@ -179,9 +176,8 @@ body {
   background-color: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 0.55rem 0.8rem;
+  padding: 0.6rem 0.8rem;
   gap: 0.5rem;
-  flex-grow: 1;
 }
 
 .search-icon {
@@ -192,75 +188,30 @@ body {
   border: none;
   outline: none;
   width: 100%;
-  font-size: 0.9rem;
-  color: var(--text-main);
-  background: transparent;
+  font-size: 0.95rem;
 }
 
-.controls-actions {
+.select-filters {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.5rem;
-  align-items: center;
 }
 
-.control-select,
 .select-filters select {
-  flex: 1;
-  min-width: 140px;
-  padding: 0.55rem 0.75rem;
+  width: 100%;
+  padding: 0.5rem;
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background-color: var(--bg-card);
   color: var(--text-main);
   font-size: 0.85rem;
-  outline: none;
-  cursor: pointer;
-}
-
-.view-toggle {
-  display: flex;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 2px;
-  gap: 2px;
-}
-
-.btn-view {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: transparent;
-  border: none;
-  padding: 0.45rem 0.65rem;
-  border-radius: var(--radius-sm);
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-view.active {
-  background-color: #f1f5f9;
-  color: var(--primary);
-}
-
-.btn-view.active svg {
-  stroke: var(--primary);
-}
-
-.desktop-only {
-  display: none;
 }
 
 /* ==========================================================================
-   5. GRID Y VISTAS DE PRODUCTOS
+   GRID DE PRODUCTOS
    ========================================================================== */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas en celular */
   gap: 0.75rem;
 }
 
@@ -370,38 +321,8 @@ body {
   cursor: not-allowed;
 }
 
-/* Vista en Lista */
-.products-grid.list-view {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.products-grid.list-view .product-card {
-  flex-direction: row;
-  align-items: center;
-}
-
-.products-grid.list-view .product-image-container {
-  width: 110px;
-  height: 110px;
-  min-width: 110px;
-}
-
-.products-grid.list-view .product-info {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.products-grid.list-view .product-price-row {
-  margin-top: 0;
-  align-items: flex-end;
-}
-
 /* ==========================================================================
-   6. NAVEGACIÓN MÓVIL Y CARRITO FLOTANTE
+   CARRITO FLOTANTE MÓVIL
    ========================================================================== */
 .floating-cart-bar {
   position: fixed;
@@ -428,6 +349,9 @@ body {
   cursor: pointer;
 }
 
+/* ==========================================================================
+   BARRA DE NAVEGACIÓN INFERIOR (CELULAR)
+   ========================================================================== */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -458,11 +382,441 @@ body {
 }
 
 /* ==========================================================================
-   7. MODAL DETALLE DEL PRODUCTO
+   MEDIA QUERIES (ADAPTACIÓN A ESCRITORIO / DESKTOP)
+   ========================================================================== */
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0; /* Sin bottom nav en escritorio */
+  }
+
+  .bottom-nav, .floating-cart-bar, .mobile-only-select {
+    display: none; /* Ocultar elementos móviles */
+  }
+
+  .btn-cart-header {
+    display: flex; /* Mostrar botón de carrito arriba */
+  }
+
+  .app-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr; /* Layout en 2 columnas */
+    gap: 1.5rem;
+    padding: 2rem 1rem;
+  }
+
+  .sidebar {
+    display: block; /* Mostrar barra lateral de filtros */
+  }
+
+  .controls-bar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .search-box {
+    width: 320px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Re-ordenamiento responsive */
+    gap: 1.25rem;
+  }
+
+  .product-title {
+    font-size: 0.95rem;
+  }
+
+  .product-price-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+
+/* ==========================================================================
+   BARRA DE CONTROLES
+   ========================================================================== */
+.controls-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.55rem 0.8rem;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.search-icon {
+  stroke: var(--text-muted);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  background: transparent;
+}
+
+.controls-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.control-select {
+  flex: 1;
+  min-width: 140px;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Selector Vista Cuadrícula / Lista */
+.view-toggle {
+  display: flex;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2px;
+  gap: 2px;
+}
+
+.btn-view {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-view stroke {
+  stroke: var(--text-muted);
+}
+
+.btn-view.active {
+  background-color: #f1f5f9;
+  color: var(--primary);
+}
+
+.btn-view.active svg {
+  stroke: var(--primary);
+}
+
+.desktop-only {
+  display: none;
+}
+
+/* ==========================================================================
+   VISTA EN LISTA (Se activa asignando la clase .list-view a #products-container)
+   ========================================================================== */
+.products-grid.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.products-grid.list-view .product-card {
+  flex-direction: row;
+  align-items: center;
+}
+
+.products-grid.list-view .product-image-container {
+  width: 110px;
+  height: 110px;
+  min-width: 110px;
+}
+
+.products-grid.list-view .product-info {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.products-grid.list-view .product-price-row {
+  margin-top: 0;
+  align-items: flex-end;
+}
+
+/* Media Query para Pantallas Medianas y Grandes */
+@media (min-width: 768px) {
+  .controls-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .desktop-only {
+    display: inline;
+  }
+
+  .control-select {
+    flex: initial;
+    width: auto;
+  }
+}
+
+/* ==========================================================================
+   MODAL DE DETALLE DE PRODUCTO Y CARRUSEL
    ========================================================================== */
 .product-modal-backdrop {
   position: fixed;
   inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.product-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.product-modal-content {
+  background: var(--bg-card, #fff);
+  width: 100%;
+  max-width: 650px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.btn-close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 10;
+  color: #666;
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .modal-body {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Carrusel */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-track img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.carousel-btn.prev { left: 8px; }
+.carousel-btn.next { right: 8px; }
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.dot-item {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.dot-item.active {
+  background: var(--primary, #2563eb);
+}
+
+/* Info Modal */
+.modal-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-title { font-size: 1.25rem; margin: 0.5rem 0 0.2rem; }
+.modal-variant { color: #64748b; font-size: 0.9rem; margin-bottom: 0.8rem; }
+.modal-description { font-size: 0.85rem; color: #475569; margin-bottom: 1rem; }
+.modal-price { font-size: 1.4rem; font-weight: bold; margin-bottom: 1rem; }
+
+/* Estilos para el Modal del Carrito */
+.cart-modal-content {
+    max-width: 500px;
+    width: 90%;
+    padding: 24px;
+}
+
+.cart-items-list {
+    max-height: 320px;
+    overflow-y: auto;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.cart-item-price {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-qty {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-qty:hover {
+    background: #e5e7eb;
+}
+
+.btn-remove-item {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 8px;
+}
+
+.cart-summary-footer {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 16px;
+}
+
+.cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+}
+
+.btn-send-whatsapp {
+    width: 100%;
+    background-color: #25d366;
+    color: white;
+}
+
+.btn-send-whatsapp:hover {
+    background-color: #1eb857;
+}
+
+.empty-cart-msg {
+    text-align: center;
+    color: #6b7280;
+    padding: 20px 0;
+}
+/* ==========================================================================
+   MODAL DE DETALLE DEL PRODUCTO (ESTILO MODERNO / TIENDA)
+   ========================================================================== */
+
+.product-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(4px);
   display: flex;
@@ -481,15 +835,15 @@ body {
 }
 
 .product-modal-card {
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
+  background: #ffffff;
+  border-radius: 16px;
   width: 100%;
   max-width: 900px;
   max-height: 90vh;
   overflow-y: auto;
   padding: 28px;
   position: relative;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .btn-close-modal {
@@ -514,11 +868,18 @@ body {
 
 .product-modal-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
 }
 
-/* Galería de Imágenes Modal */
+@media (max-width: 768px) {
+  .product-modal-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Galería de Imágenes */
 .product-gallery {
   display: flex;
   flex-direction: column;
@@ -543,10 +904,9 @@ body {
   object-fit: contain;
 }
 
-.gallery-nav, 
-.thumb-nav {
+.gallery-nav, .thumb-nav {
   background: #ffffff;
-  border: 1px solid var(--border);
+  border: 1px solid #e2e8f0;
   border-radius: 50%;
   width: 32px;
   height: 32px;
@@ -556,7 +916,7 @@ body {
   cursor: pointer;
   font-size: 12px;
   color: #333;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
 }
 
 .gallery-nav.prev { position: absolute; left: 12px; }
@@ -586,10 +946,10 @@ body {
 }
 
 .thumb-item.active {
-  border-color: var(--accent-teal);
+  border-color: #0d8a8a;
 }
 
-/* Detalles e Interactividad del Modal */
+/* Detalles del Producto */
 .product-details {
   display: flex;
   flex-direction: column;
@@ -612,13 +972,13 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--text-muted);
+  color: #64748b;
   padding: 4px;
 }
 
 .product-subtitle {
   font-size: 14px;
-  color: var(--text-muted);
+  color: #64748b;
   margin: 4px 0 12px 0;
 }
 
@@ -629,6 +989,7 @@ body {
   margin-bottom: 20px;
 }
 
+/* Selector Chips */
 .option-group {
   margin-bottom: 16px;
 }
@@ -659,20 +1020,21 @@ body {
 }
 
 .chip-item:hover {
-  border-color: var(--accent-teal);
+  border-color: #0d8a8a;
 }
 
 .chip-item.active {
-  border-color: var(--accent-teal);
+  border-color: #0d8a8a;
   background: #e6f4f4;
-  color: var(--accent-teal);
+  color: #0d8a8a;
   font-weight: 600;
 }
 
+/* Precio y Disponibilidad */
 .price-tag {
   font-size: 28px;
   font-weight: 800;
-  color: var(--accent-teal);
+  color: #0d8a8a;
   margin: 12px 0;
 }
 
@@ -693,9 +1055,10 @@ body {
   display: inline-block;
 }
 
+/* Botón CTA Verde WhatsApp */
 .btn-whatsapp-action {
   width: 100%;
-  background: var(--accent-teal);
+  background: #0d8a8a;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -711,7 +1074,7 @@ body {
 }
 
 .btn-whatsapp-action:hover {
-  background: var(--accent-teal-hover);
+  background: #0b7373;
 }
 
 .share-footer {
@@ -720,178 +1083,9 @@ body {
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  color: var(--text-muted);
+  color: #64748b;
 }
 
 .share-icon {
   color: #22c55e;
-}
-
-/* ==========================================================================
-   8. MODAL DEL CARRITO
-   ========================================================================== */
-.cart-modal-content {
-  max-width: 500px;
-  width: 90%;
-  padding: 24px;
-}
-
-.cart-items-list {
-  max-height: 320px;
-  overflow-y: auto;
-  margin: 20px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.cart-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-}
-
-.cart-item-info {
-  flex: 1;
-}
-
-.cart-item-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.cart-item-price {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.cart-item-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-qty {
-  width: 28px;
-  height: 28px;
-  border: 1px solid #d1d5db;
-  background: #f9fafb;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.btn-qty:hover {
-  background: #e5e7eb;
-}
-
-.btn-remove-item {
-  background: none;
-  border: none;
-  color: var(--status-unavailable);
-  cursor: pointer;
-  font-size: 1.2rem;
-  margin-left: 8px;
-}
-
-.cart-summary-footer {
-  border-top: 1px solid var(--border);
-  padding-top: 16px;
-}
-
-.cart-total-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.1rem;
-  margin-bottom: 16px;
-}
-
-.btn-send-whatsapp {
-  width: 100%;
-  background-color: #25d366;
-  color: white;
-}
-
-.btn-send-whatsapp:hover {
-  background-color: #1eb857;
-}
-
-.empty-cart-msg {
-  text-align: center;
-  color: var(--text-muted);
-  padding: 20px 0;
-}
-
-/* ==========================================================================
-   9. MEDIA QUERIES (DESKTOP Y PANTALLAS GRANDES)
-   ========================================================================== */
-@media (min-width: 768px) {
-  body {
-    padding-bottom: 0;
-  }
-
-  .bottom-nav, 
-  .floating-cart-bar, 
-  .mobile-only-select {
-    display: none;
-  }
-
-  .btn-cart-header {
-    display: flex;
-  }
-
-  .app-layout {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: 1.5rem;
-    padding: 2rem 1rem;
-  }
-
-  .sidebar {
-    display: block;
-  }
-
-  .controls-bar {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .search-box {
-    width: 320px;
-  }
-
-  .desktop-only {
-    display: inline;
-  }
-
-  .control-select {
-    flex: initial;
-    width: auto;
-  }
-
-  .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.25rem;
-  }
-
-  .product-title {
-    font-size: 0.95rem;
-  }
-
-  .product-price-row {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .product-modal-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-  }
 }
