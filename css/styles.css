@@ -1089,3 +1089,72 @@ body {
 .share-icon {
   color: #22c55e;
 }
+
+/* Utilidades de vistas SPA */
+.app-view.hidden {
+  display: none !important;
+}
+
+.info-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.btn-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 10px;
+  color: #fff;
+}
+.btn-contact.whatsapp { background-color: #25d366; }
+.btn-contact.instagram { background-color: #e1306c; }
+
+/* ESTILOS DEL FOOTER Y FIRMA MTI */
+.app-footer {
+  margin-top: 40px;
+  padding: 20px 15px 90px; /* Padding inferior extra para no tapar con la barra móvil */
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #64748b;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.developer-credit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+
+.mti-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #2563eb; /* Color de tu marca */
+  text-decoration: none;
+  font-weight: 700;
+  transition: opacity 0.2s;
+}
+
+.mti-brand:hover {
+  opacity: 0.8;
+}
+
+.mti-logo {
+  stroke: #2563eb;
+}

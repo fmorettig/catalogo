@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalogo Web - Vitrina de Productos</title>
-    
+
     <!-- Hojas de Estilos -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/responsive.css">
 
     <!-- Librería externa PapaParse -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    
+
     <!-- Script Principal Modular (ES6) -->
     <script type="module" src="js/app.js"></script>
 </head>
@@ -29,8 +29,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="brand-name">LimpiaFácil</h1>
-                    <p class="brand-tagline">Todo para un hogar impecable</p>
+                    <h1 class="brand-name" id="store-name">Catalogo Web</h1>
+                    <p class="brand-tagline" id="store-tagline">Vitrina de Productos</p>
                 </div>
             </div>
 
@@ -85,73 +85,123 @@
         <!-- CONTENIDO DE PRODUCTOS -->
         <main class="main-content">
 
-            <!-- BUSCADOR Y CONTROLES -->
-            <section class="controls-bar">
+            <!-- VISTA: CATÁLOGO DE PRODUCTOS -->
+            <section id="view-catalogo" class="app-view active">
 
-                <!-- Buscador en tiempo real -->
-                <div class="search-box">
-                    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8" />
-                        <path d="m21 21-4.3-4.3" />
-                    </svg>
-                    <input type="text" id="search-input" placeholder="Buscar productos...">
-                </div>
-
-                <!-- Grupo de Filtros y Vistas -->
-                <div class="controls-actions">
-
-                    <!-- Select Categorías -->
-                    <select id="select-category" class="control-select">
-                        <!-- Se llena dinámicamente desde JS -->
-                    </select>
-
-                    <!-- Select Ordenamiento -->
-                    <select id="sort-by" class="control-select">
-                        <option value="name-asc">Nombre (A - Z)</option>
-                        <option value="name-desc">Nombre (Z - A)</option>
-                        <option value="price-asc">Precio: Menor a Mayor</option>
-                        <option value="price-desc">Precio: Mayor a Menor</option>
-                    </select>
-
-                    <!-- Botones Vista Cuadrícula / Lista -->
-                    <div class="view-toggle">
-                        <button class="btn-view active" id="btn-grid-view" title="Vista Cuadrícula">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect width="7" height="7" x="3" y="3" rx="1" />
-                                <rect width="7" height="7" x="14" y="3" rx="1" />
-                                <rect width="7" height="7" x="14" y="14" rx="1" />
-                                <rect width="7" height="7" x="3" y="14" rx="1" />
-                            </svg>
-                            <span class="desktop-only">Cuadrícula</span>
-                        </button>
-                        <button class="btn-view" id="btn-list-view" title="Vista Lista">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="8" x2="21" y1="6" y2="6" />
-                                <line x1="8" x2="21" y1="12" y2="12" />
-                                <line x1="8" x2="21" y1="18" y2="18" />
-                                <line x1="3" x2="3.01" y1="6" y2="6" />
-                                <line x1="3" x2="3.01" y1="12" y2="12" />
-                                <line x1="3" x2="3.01" y1="18" y2="18" />
-                            </svg>
-                            <span class="desktop-only">Lista</span>
-                        </button>
+                <!-- BUSCADOR Y CONTROLES -->
+                <div class="controls-bar">
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.3-4.3" />
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Buscar productos...">
                     </div>
 
+                    <div class="controls-actions">
+                        <select id="select-category" class="control-select">
+                            <!-- Se llena dinámicamente desde JS -->
+                        </select>
+
+                        <select id="sort-by" class="control-select">
+                            <option value="name-asc">Nombre (A - Z)</option>
+                            <option value="name-desc">Nombre (Z - A)</option>
+                            <option value="price-asc">Precio: Menor a Mayor</option>
+                            <option value="price-desc">Precio: Mayor a Menor</option>
+                        </select>
+
+                        <div class="view-toggle">
+                            <button class="btn-view active" id="btn-grid-view" title="Vista Cuadrícula">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="7" height="7" x="3" y="3" rx="1" />
+                                    <rect width="7" height="7" x="14" y="3" rx="1" />
+                                    <rect width="7" height="7" x="14" y="14" rx="1" />
+                                    <rect width="7" height="7" x="3" y="14" rx="1" />
+                                </svg>
+                                <span class="desktop-only">Cuadrícula</span>
+                            </button>
+                            <button class="btn-view" id="btn-list-view" title="Vista Lista">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="8" x2="21" y1="6" y2="6" />
+                                    <line x1="8" x2="21" y1="12" y2="12" />
+                                    <line x1="8" x2="21" y1="18" y2="18" />
+                                    <line x1="3" x2="3.01" y1="6" y2="6" />
+                                    <line x1="3" x2="3.01" y1="12" y2="12" />
+                                    <line x1="3" x2="3.01" y1="18" y2="18" />
+                                </svg>
+                                <span class="desktop-only">Lista</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRID DE TARJETAS DE PRODUCTO -->
+                <div class="products-grid" id="products-container">
+                    <!-- JS generará dinámicamente los productos aquí -->
                 </div>
 
             </section>
 
-            <!-- GRID DE TARJETAS DE PRODUCTO -->
-            <section class="products-grid" id="products-container">
-                <!-- JS generará dinámicamente los productos aquí -->
+            <!-- VISTA: EMPRESA -->
+            <section id="view-empresa" class="app-view hidden">
+                <div class="info-card">
+                    <h2>Sobre Nosotros</h2>
+                    <p id="company-description">
+                        Somos una empresa dedicada a ofrecer productos de la más alta calidad.
+                        Nos enfocamos en brindar atención personalizada y entregas rápidas directamente hasta la puerta
+                        de tu hogar.
+                    </p>
+                    <div class="company-features">
+                        <div class="feature-item">
+                            <h4>📍 Ubicación</h4>
+                            <p id="company-address">Atención en tienda física y envíos a nivel nacional.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>⏰ Horarios de Atención</h4>
+                            <p id="company-hours">Lunes a Sábado: 8:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
             </section>
 
-            <!-- BOTÓN FLOTANTE MÓVIL -->
+            <!-- VISTA: CONTACTO -->
+            <section id="view-contacto" class="app-view hidden">
+                <div class="info-card">
+                    <h2>Contáctanos</h2>
+                    <p>¿Tienes dudas sobre un pedido o producto? Escríbenos por cualquiera de nuestros medios:</p>
+
+                    <div class="contact-links">
+                        <a href="https://wa.me/584120000000" id="contact-whatsapp" class="btn-contact whatsapp"
+                            target="_blank">
+                            Atención por WhatsApp
+                        </a>
+                        <a href="https://instagram.com" id="contact-instagram" class="btn-contact instagram"
+                            target="_blank">
+                            Síguenos en Instagram
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PIE DE PÁGINA Y CRÉDITO -->
+            <footer class="app-footer">
+                <div class="footer-content">
+                    <p class="copyright">&copy; 2026 Todos los derechos reservados.</p>
+                    <div class="developer-credit">
+                        <span>Desarrollado por</span>
+                        <a href="#" target="_blank" class="mti-brand" title="MTI">
+                            <img src="assets/images/mti.png" alt="MTI Logo" class="mti-logo-img" height="18">
+                        </a>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- BOTÓN FLOTANTE MÓVIL (ABRE CARRITO) -->
             <div class="floating-cart-bar">
-                <button class="btn-whatsapp-cart">
+                <button class="btn-whatsapp-cart" id="btn-cart-mobile">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                     </svg>
@@ -164,7 +214,7 @@
 
     <!-- NAVEGACIÓN INFERIOR MÓVIL -->
     <nav class="bottom-nav">
-        <a href="#catalogo" class="nav-item active">
+        <a href="#catalogo" class="nav-item active" data-target="view-catalogo">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="8" cy="21" r="1" />
                 <circle cx="19" cy="21" r="1" />
@@ -172,7 +222,7 @@
             </svg>
             <span>Catálogo</span>
         </a>
-        <a href="#empresa" class="nav-item">
+        <a href="#empresa" class="nav-item" data-target="view-empresa">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect width="16" height="20" x="4" y="2" rx="2" ry="2" />
                 <path d="M9 22v-4h6v4" />
@@ -188,7 +238,7 @@
             </svg>
             <span>Empresa</span>
         </a>
-        <a href="#contacto" class="nav-item">
+        <a href="#contacto" class="nav-item" data-target="view-contacto">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
             </svg>
@@ -196,101 +246,91 @@
         </a>
     </nav>
 
-<!-- MODAL DE DETALLE DEL PRODUCTO (ESTILO MODERNO) -->
-<div class="product-modal-backdrop" id="product-modal">
-    <div class="product-modal-card">
-        <button class="btn-close-modal" id="btn-close-modal">&times;</button>
-        <h3 class="modal-header-title">DETALLE DEL PRODUCTO</h3>
+    <!-- MODAL DE DETALLE DEL PRODUCTO -->
+    <div class="product-modal-backdrop" id="product-modal">
+        <div class="product-modal-card">
+            <button class="btn-close-modal" id="btn-close-modal">&times;</button>
+            <h3 class="modal-header-title">DETALLE DEL PRODUCTO</h3>
 
-        <div class="product-modal-grid">
-            
-            <!-- COLUMNA IZQUIERDA: GALERÍA DE IMÁGENES -->
-            <div class="product-gallery">
-                <div class="main-image-container">
-                    <button class="gallery-nav prev" id="carousel-prev">&#10094;</button>
-                    <img id="modal-main-image" src="https://via.placeholder.com/400" alt="Producto">
-                    <button class="gallery-nav next" id="carousel-next">&#10095;</button>
-                </div>
+            <div class="product-modal-grid">
 
-                <!-- Tiras de miniaturas inferior -->
-                <div class="thumbnails-wrapper">
-                    <button class="thumb-nav prev" id="thumb-prev">&#10094;</button>
-                    <div class="thumbnails-container" id="carousel-dots">
-                        <!-- JS generará las miniaturas <img class="thumb-item"> aquí -->
+                <!-- GALERÍA DE IMÁGENES -->
+                <div class="product-gallery">
+                    <div class="main-image-container">
+                        <button class="gallery-nav prev" id="carousel-prev">&#10094;</button>
+                        <img id="modal-main-image" src="https://via.placeholder.com/400" alt="Producto">
+                        <button class="gallery-nav next" id="carousel-next">&#10095;</button>
                     </div>
-                    <button class="thumb-nav next" id="thumb-next">&#10095;</button>
-                </div>
-            </div>
 
-            <!-- COLUMNA DERECHA: INFORMACIÓN Y SELECCIONES -->
-            <div class="product-details">
-                <div class="details-header">
-                    <h2 id="modal-title" class="product-name">Limpia Pisos Lavanda</h2>
-                    <button class="btn-wishlist" title="Guardar">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.78-8.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    <div class="thumbnails-wrapper">
+                        <button class="thumb-nav prev" id="thumb-prev">&#10094;</button>
+                        <div class="thumbnails-container" id="carousel-dots">
+                            <!-- Miniaturas JS -->
+                        </div>
+                        <button class="thumb-nav next" id="thumb-next">&#10095;</button>
+                    </div>
+                </div>
+
+                <!-- INFORMACIÓN Y SELECCIONES -->
+                <div class="product-details">
+                    <div class="details-header">
+                        <h2 id="modal-title" class="product-name">Nombre del Producto</h2>
+                        <button class="btn-wishlist" title="Guardar">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.78-8.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <p id="modal-variant" class="product-subtitle">-</p>
+                    <p id="modal-description" class="product-desc">-</p>
+
+                    <div class="option-group">
+                        <label class="option-label">Modelos / Presentaciones</label>
+                        <div class="chips-container" id="modal-presentations"></div>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="option-label">Fragancias / Tipos</label>
+                        <div class="chips-container" id="modal-fragrances"></div>
+                    </div>
+
+                    <div class="price-tag" id="modal-price">$ 0</div>
+
+                    <div class="stock-status">
+                        <span>Disponibilidad: <strong id="modal-status-text">Disponible</strong></span>
+                        <span class="status-dot-green" id="modal-status-dot"></span>
+                    </div>
+
+                    <button class="btn-whatsapp-action" id="modal-add-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                            </path>
                         </svg>
+                        Agregar al Carrito
                     </button>
-                </div>
 
-                <p id="modal-variant" class="product-subtitle">1 Litro</p>
-                <p id="modal-description" class="product-desc">
-                    Limpiador líquido con fragancia a lavanda. Ideal para todo tipo de pisos.
-                </p>
-
-                <!-- Modelos / Presentaciones -->
-                <div class="option-group">
-                    <label class="option-label">Modelos / Presentaciones</label>
-                    <div class="chips-container" id="modal-presentations">
-                        <button class="chip-item">500 ml</button>
-                        <button class="chip-item active">1 Litro</button>
-                        <button class="chip-item">2 Litros</button>
-                        <button class="chip-item">4 Litros</button>
+                    <div class="share-footer">
+                        <span>Comparte este producto:</span>
+                        <a href="#" class="share-icon" id="share-whatsapp" target="_blank"
+                            title="Compartir en WhatsApp">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                                </path>
+                            </svg>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Fragancias / Tipos -->
-                <div class="option-group">
-                    <label class="option-label">Fragancias / Tipos</label>
-                    <div class="chips-container" id="modal-fragrances">
-                        <button class="chip-item active">Lavanda</button>
-                        <button class="chip-item">Floral</button>
-                        <button class="chip-item">Limón</button>
-                        <button class="chip-item">Pino</button>
-                    </div>
-                </div>
-
-                <!-- Precio -->
-                <div class="price-tag" id="modal-price">$ 12.500</div>
-
-                <!-- Disponibilidad -->
-                <div class="stock-status">
-                    <span>Disponibilidad: <strong id="modal-status-text">Disponible</strong></span>
-                    <span class="status-dot-green" id="modal-status-dot"></span>
-                </div>
-
-                <!-- Botón Acción Principal -->
-                <button class="btn-whatsapp-action" id="modal-add-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                    </svg>
-                    Consultar por WhatsApp
-                </button>
-
-                <!-- Compartir -->
-                <div class="share-footer">
-                    <span>Comparte este producto:</span>
-                    <a href="#" class="share-icon" id="share-whatsapp" target="_blank" title="Compartir en WhatsApp">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                        </svg>
-                    </a>
-                </div>
-
             </div>
         </div>
     </div>
-</div>
 
     <!-- MODAL DE RESUMEN DEL CARRITO -->
     <div class="product-modal-backdrop" id="cart-modal">
@@ -299,7 +339,7 @@
 
             <div class="cart-modal-body">
                 <h2>Tu Carrito</h2>
-                
+
                 <div class="cart-items-list" id="cart-items-container">
                     <!-- Ítems del carrito desde JS -->
                 </div>
@@ -318,4 +358,5 @@
     </div>
 
 </body>
+
 </html>

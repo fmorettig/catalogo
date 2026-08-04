@@ -22,8 +22,46 @@ document.addEventListener("DOMContentLoaded", () => {
   setupViewToggle();
   setupModalEvents();
   setupCartEvents();
+  setupNavigation();
 });
 
+// ==========================================================================
+// NAVEGACIÓN VISTAS SPA (Catálogo / Empresa / Contacto)
+// ==========================================================================
+function setupNavigation() {
+  const navItems = document.querySelectorAll(".bottom-nav .nav-item");
+  const views = document.querySelectorAll(".app-view");
+
+  navItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
+      
+      const targetId = item.getAttribute("data-target");
+
+      // Cambiar clase activa en ítems de navegación
+      navItems.forEach((nav) => nav.classList.remove("active"));
+      item.classList.add("active");
+
+      // Ocultar/Mostrar la vista correspondiente
+      views.forEach((view) => {
+        if (view.id === targetId) {
+          view.classList.remove("hidden");
+          view.classList.add("active");
+        } else {
+          view.classList.add("hidden");
+          view.classList.remove("active");
+        }
+      });
+
+      // Si el usuario cambia de pestaña, hacer scroll al inicio de la pantalla
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+}
+
+// ==========================================================================
+// FILTROS Y BÚSQUEDA EN TIEMPO REAL
+// ==========================================================================
 function setupFilterEvents() {
   const searchInput = document.getElementById("search-input");
   const selectCategory = document.getElementById("select-category");
@@ -34,7 +72,7 @@ function setupFilterEvents() {
   const applyFilters = () => {
     let filtered = [...productsData];
 
-    // Texto
+    // Búsqueda por Texto
     const query = searchInput?.value.toLowerCase().trim() || "";
     if (query) {
       filtered = filtered.filter(
@@ -42,12 +80,12 @@ function setupFilterEvents() {
       );
     }
 
-    // Categoría
+    // Filtrado por Categoría
     if (selectedCategory !== "all") {
       filtered = filtered.filter((p) => p.categoria === selectedCategory);
     }
 
-    // Disponibilidad
+    // Filtrado por Disponibilidad
     if (availabilityCheckboxes.length >= 2) {
       const showAvailable = availabilityCheckboxes[0].checked;
       const showUnavailable = availabilityCheckboxes[1].checked;
@@ -59,7 +97,7 @@ function setupFilterEvents() {
       });
     }
 
-    // Orden
+    // Ordenamiento
     const sortVal = sortBy?.value;
     if (sortVal === "name-asc") filtered.sort((a, b) => a.nombre.localeCompare(b.nombre));
     if (sortVal === "name-desc") filtered.sort((a, b) => b.nombre.localeCompare(a.nombre));
@@ -97,9 +135,13 @@ function setupFilterEvents() {
   availabilityCheckboxes.forEach((cb) => cb.addEventListener("change", applyFilters));
 }
 
+// ==========================================================================
+// CARRITO DE COMPRAS
+// ==========================================================================
 function setupCartEvents() {
   const container = document.getElementById("products-container");
   const modalAddBtn = document.getElementById("modal-add-btn");
+  const btnCartMobile = document.getElementById("btn-cart-mobile");
   const btnWhatsappMobile = document.querySelector(".btn-whatsapp-cart");
   const btnCartDesktop = document.getElementById("btn-cart-desktop");
   const cartModal = document.getElementById("cart-modal");
@@ -107,7 +149,7 @@ function setupCartEvents() {
   const cartItemsContainer = document.getElementById("cart-items-container");
   const btnConfirmWhatsapp = document.getElementById("btn-confirm-whatsapp");
 
-  // Agregar desde tarjeta
+  // Agregar desde tarjeta en la grilla
   container?.addEventListener("click", (e) => {
     const btn = e.target.closest('[data-action="add-cart"]');
     if (!btn) return;
@@ -119,7 +161,7 @@ function setupCartEvents() {
     addToCart(product);
   });
 
-  // Agregar desde modal detalle
+  // Agregar desde modal detalle del producto
   modalAddBtn?.addEventListener("click", () => {
     const productId = modalAddBtn.dataset.id;
     const product = productsData.find((p) => p.id === productId);
@@ -129,12 +171,13 @@ function setupCartEvents() {
     }
   });
 
-  // Modales
+  // Abrir y Cerrar Modal del Carrito
   const openCart = () => {
     renderCartModal();
     cartModal?.classList.add("active");
   };
 
+  btnCartMobile?.addEventListener("click", openCart);
   btnWhatsappMobile?.addEventListener("click", openCart);
   btnCartDesktop?.addEventListener("click", openCart);
   btnCloseCart?.addEventListener("click", () => cartModal?.classList.remove("active"));
@@ -142,7 +185,7 @@ function setupCartEvents() {
     if (e.target === cartModal) cartModal.classList.remove("active");
   });
 
-  // Controles +/- e eliminar del carrito
+  // Controles de cantidad (+/-) e ítem individual dentro del modal
   cartItemsContainer?.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-cart-action]");
     if (!btn) return;
@@ -159,6 +202,9 @@ function setupCartEvents() {
   btnConfirmWhatsapp?.addEventListener("click", sendCartToWhatsApp);
 }
 
+// ==========================================================================
+// MODAL DE DETALLE DEL PRODUCTO
+// ==========================================================================
 function setupModalEvents() {
   const container = document.getElementById("products-container");
   const modal = document.getElementById("product-modal");
@@ -184,6 +230,9 @@ function setupModalEvents() {
   document.getElementById("carousel-next")?.addEventListener("click", () => changeSlide(1));
 }
 
+// ==========================================================================
+// CONMUTACIÓN DE VISTA (CUADRÍCULA / LISTA)
+// ==========================================================================
 function setupViewToggle() {
   const btnGrid = document.getElementById("btn-grid-view");
   const btnList = document.getElementById("btn-list-view");
