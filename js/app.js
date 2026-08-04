@@ -12,6 +12,9 @@ let selectedCategory = "all";
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Catálogo e interfaz inicializados.");
 
+  // Detectar si la URL contiene una orden de cotización para visualización/impresión
+  checkOrderUrlParam();
+
   loadProductsFromSheet((data) => {
     productsData = data;
     generateDynamicCategories(productsData);
@@ -26,6 +29,90 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================================================
+// DETECCIÓN Y RENDERIZADO DE COTIZACIÓN DESDE URL (?orden=ORD-XXXX)
+// ==========================================================================
+function checkOrderUrlParam() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const orderId = urlParams.get("orden");
+  const encodedData = urlParams.get("data");
+
+  if (!orderId) return;
+
+  let orderData = null;
+
+  // Si trae data en la URL (funciona en cualquier dispositivo)
+  if (encodedData) {
+    try {
+      orderData = JSON.parse(atob(decodeURIComponent(encodedData)));
+    } catch (e) {
+      console.error("Error al decodificar la orden de la URL", e);
+    }
+  } 
+
+  // Fallback a localStorage si existiera localmente
+  if (!orderData) {
+    const savedOrder = localStorage.getItem(orderId);
+    if (savedOrder) orderData = JSON.parse(savedOrder);
+  }
+
+  if (orderData) {
+    renderCotizacionView(orderData);
+  }
+}
+
+function renderCotizacionView(order) {
+  const views = document.querySelectorAll(".app-view");
+  const cotizacionView = document.getElementById("view-cotizacion");
+
+  if (!cotizacionView) return;
+
+  // Cambiar visibilidad de las vistas SPA
+  views.forEach((view) => {
+    if (view.id === "view-cotizacion") {
+      view.classList.remove("hidden");
+      view.classList.add("active");
+    } else {
+      view.classList.add("hidden");
+      view.classList.remove("active");
+    }
+  });
+
+  // Inyectar datos en la factura
+  const invoiceId = document.getElementById("invoice-id");
+  const invoiceDate = document.getElementById("invoice-date");
+  const invoiceBody = document.getElementById("invoice-items-body");
+  const invoiceTotal = document.getElementById("invoice-total-amount");
+
+  if (invoiceId) invoiceId.innerText = order.id;
+  if (invoiceDate) invoiceDate.innerText = order.date;
+
+  const formatter = new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  });
+
+  if (invoiceBody) {
+    invoiceBody.innerHTML = order.items
+      .map(
+        (item) => `
+        <tr>
+          <td>${item.quantity}</td>
+          <td>${item.nombre} (${item.variante})</td>
+          <td>${formatter.format(item.precio)}</td>
+          <td>${formatter.format(item.subtotal)}</td>
+        </tr>
+      `
+      )
+      .join("");
+  }
+
+  if (invoiceTotal) {
+    invoiceTotal.innerText = formatter.format(order.total);
+  }
+}
+
+// ==========================================================================
 // NAVEGACIÓN VISTAS SPA (Catálogo / Empresa / Contacto)
 // ==========================================================================
 function setupNavigation() {
@@ -35,7 +122,7 @@ function setupNavigation() {
   navItems.forEach((item) => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
-      
+
       const targetId = item.getAttribute("data-target");
 
       // Cambiar clase activa en ítems de navegación

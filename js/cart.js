@@ -103,29 +103,39 @@ export function sendCartToWhatsApp() {
     return;
   }
 
-  let message = "¡Hola! Quisiera consultar la disponibilidad e información de los siguientes productos:\n\n";
-
-  let total = 0;
-  cart.forEach((item, index) => {
-    const subtotal = item.product.precio * item.quantity;
-    total += subtotal;
-    const formattedSubtotal = new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      maximumFractionDigits: 0,
-    }).format(subtotal);
-
-    message += `${index + 1}. *${item.product.nombre}* (${item.product.variante || "Única"})\n`;
-    message += `   Cantidad: ${item.quantity} | Subtotal: ${formattedSubtotal}\n\n`;
-  });
-
-  const formattedTotal = new Intl.NumberFormat("es-CO", {
+  const orderId = "ORD-" + Math.floor(1000 + Math.random() * 9000);
+  
+  const formatter = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
     maximumFractionDigits: 0,
-  }).format(total);
+  });
 
-  message += `*Total estimado:* ${formattedTotal}\n\n`;
+  const total = cart.reduce((acc, item) => acc + item.product.precio * item.quantity, 0);
+
+  // Estructura de la orden
+  const orderData = {
+    id: orderId,
+    date: new Date().toLocaleDateString("es-ES"),
+    items: cart.map(item => ({
+      nombre: item.product.nombre,
+      variante: item.product.variante || "Única",
+      precio: item.product.precio,
+      quantity: item.quantity,
+      subtotal: item.product.precio * item.quantity
+    })),
+    total: total
+  };
+
+  // Convertir la orden a string JSON y luego a Base64 para pasarlo por la URL
+  const encodedData = encodeURIComponent(btoa(JSON.stringify(orderData)));
+
+  // Construir la URL pública de Vercel con la data incrustada
+  const orderUrl = `https://catalogo-silk-ten.vercel.app/?orden=${orderId}&data=${encodedData}`;
+
+  let message = `¡Hola! Quisiera procesar la siguiente cotización (Orden #${orderId}).\n\n`;
+  message += `Puedes ver el detalle de los productos a despachar aquí:\n${orderUrl}\n\n`;
+  message += `*Total estimado:* ${formatter.format(total)}\n\n`;
   message += "Quedo atento a su respuesta, ¡gracias!";
 
   const encodedMessage = encodeURIComponent(message);
