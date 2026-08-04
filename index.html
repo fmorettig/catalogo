@@ -145,27 +145,94 @@
 
             </section>
 
-            <!-- VISTA: EMPRESA -->
-            <section id="view-empresa" class="app-view hidden">
-                <div class="info-card">
-                    <h2>Sobre Nosotros</h2>
-                    <p id="company-description">
-                        Somos una empresa dedicada a ofrecer productos de la más alta calidad.
-                        Nos enfocamos en brindar atención personalizada y entregas rápidas directamente hasta la puerta
-                        de tu hogar.
-                    </p>
-                    <div class="company-features">
-                        <div class="feature-item">
-                            <h4>📍 Ubicación</h4>
-                            <p id="company-address">Atención en tienda física y envíos a nivel nacional.</p>
-                        </div>
-                        <div class="feature-item">
-                            <h4>⏰ Horarios de Atención</h4>
-                            <p id="company-hours">Lunes a Sábado: 8:00 AM - 6:00 PM</p>
-                        </div>
-                    </div>
+<!-- VISTA: EMPRESA -->
+<section id="view-empresa" class="app-view hidden">
+    <div class="info-card">
+        
+        <!-- ENCABEZADO E IDENTIDAD CORPORATIVA -->
+        <div class="company-header">
+            <div class="company-logo-container">
+                <img src="assets/images/logo-empresa.png" alt="Logo Institucional" class="company-logo" id="company-logo">
+            </div>
+            <div class="company-intro">
+                <h2>Sobre Nosotros</h2>
+                <p id="company-description">
+                    Somos una empresa dedicada a ofrecer productos de la más alta calidad. Nos enfocamos en brindar atención personalizada y entregas rápidas directamente hasta la puerta de tu hogar.
+                </p>
+            </div>
+        </div>
+
+        <hr class="company-divider">
+
+        <!-- MISIÓN, VISIÓN Y VALORES -->
+        <div class="company-pillars">
+            <div class="pillar-card">
+                <div class="pillar-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <circle cx="12" cy="12" r="6" />
+                        <circle cx="12" cy="12" r="2" />
+                    </svg>
                 </div>
-            </section>
+                <h3>Misión</h3>
+                <p id="company-mission">Ofrecer a nuestros clientes productos excepcionales con un servicio eficiente, garantizando calidad, transparencia y satisfacción en cada pedido.</p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                </div>
+                <h3>Visión</h3>
+                <p id="company-vision">Ser líderes en la comercialización y distribución de nuestro sector, reconocidos por nuestra innovación digital y excelencia en el servicio al cliente.</p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                </div>
+                <h3>Valores</h3>
+                <ul class="values-list" id="company-values">
+                    <li>Compromiso y Responsabilidad</li>
+                    <li>Calidad y Calidez en el servicio</li>
+                    <li>Transparencia e Integridad</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="company-divider">
+
+        <!-- UBICACIÓN Y HORARIOS CON ICONOS SVG -->
+        <div class="company-features">
+            <div class="feature-item">
+                <div class="feature-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <h4>Ubicación</h4>
+                </div>
+                <p id="company-address">Atención en tienda física y envíos a nivel nacional.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <h4>Horarios de Atención</h4>
+                </div>
+                <p id="company-hours">Lunes a Sábado: 8:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+
+    </div>
+</section>
 
             <!-- VISTA: CONTACTO -->
             <section id="view-contacto" class="app-view hidden">

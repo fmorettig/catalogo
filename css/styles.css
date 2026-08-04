@@ -1158,3 +1158,90 @@ body {
 .mti-logo {
   stroke: #2563eb;
 }
+
+/* ==========================================
+   SECCIÓN EMPRESA CORPORATIVA
+   ========================================== */
+.company-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.company-logo-container {
+    flex-shrink: 0;
+}
+
+.company-logo {
+    max-width: 120px;
+    height: auto;
+    object-fit: contain;
+}
+
+.company-divider {
+    border: 0;
+    height: 1px;
+    background: var(--border-color, #e5e7eb);
+    margin: 24px 0;
+}
+
+.company-pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.pillar-card {
+    background-color: var(--bg-hover, #f9fafb);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #e5e7eb);
+}
+
+.pillar-icon {
+    color: var(--primary-color, #2563eb);
+    margin-bottom: 12px;
+}
+
+.pillar-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--text-main, #111827);
+}
+
+.pillar-card p, 
+.values-list {
+    font-size: 0.9rem;
+    color: var(--text-muted, #4b5563);
+    line-height: 1.5;
+}
+
+.values-list {
+    padding-left: 18px;
+    margin: 0;
+}
+
+.values-list li {
+    margin-bottom: 4px;
+}
+
+.feature-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-color, #2563eb);
+    margin-bottom: 6px;
+}
+
+.feature-title h4 {
+    margin: 0;
+    color: var(--text-main, #111827);
+}
+
+@media (max-width: 640px) {
+    .company-header {
+        flex-direction: column;
+        text-align: center;
+    }
+}
