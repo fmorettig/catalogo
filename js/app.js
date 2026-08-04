@@ -5,6 +5,7 @@
 import { loadProductsFromSheet } from "./api.js";
 import { renderProducts, generateDynamicCategories, openProductModal, changeSlide } from "./render.js";
 import { addToCart, updateQuantity, removeFromCart, renderCartModal, sendCartToWhatsApp } from "./cart.js";
+import { parseOrderFromUrl, renderInvoiceView } from "./invoice.js";
 
 let productsData = [];
 let selectedCategory = "all";
@@ -12,8 +13,11 @@ let selectedCategory = "all";
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Catálogo e interfaz inicializados.");
 
-  // Detectar si la URL contiene una orden de cotización para visualización/impresión
-  checkOrderUrlParam();
+  // Detectar y procesar si la URL contiene una cotización
+  const orderData = parseOrderFromUrl();
+  if (orderData) {
+    renderInvoiceView(orderData);
+  }
 
   loadProductsFromSheet((data) => {
     productsData = data;
@@ -27,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupCartEvents();
   setupNavigation();
 });
+
 
 // ==========================================================================
 // DETECCIÓN Y RENDERIZADO DE COTIZACIÓN DESDE URL (?orden=ORD-XXXX)
