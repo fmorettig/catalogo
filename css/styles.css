@@ -1352,3 +1352,38 @@ body {
         box-shadow: none !important;
     }
 }
+
+/* Navegación Desktop */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.desktop-nav .nav-link {
+  text-decoration: none;
+  color: var(--text-color, #4b5563);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.desktop-nav .nav-link:hover {
+  color: var(--primary-color, #2563eb);
+  background-color: var(--hover-bg, #f3f4f6);
+}
+
+.desktop-nav .nav-link.active {
+  color: var(--primary-color, #2563eb);
+  font-weight: 600;
+  background-color: var(--active-bg, #eff6ff);
+}
+
+/* Ocultar menú desktop en pantallas móviles */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+}

@@ -120,23 +120,18 @@ function renderCotizacionView(order) {
 // ==========================================================================
 // NAVEGACIÓN VISTAS SPA (Catálogo / Empresa / Contacto)
 // ==========================================================================
-function setupNavigation() {
-  const navItems = document.querySelectorAll(".bottom-nav .nav-item");
-  const views = document.querySelectorAll(".app-view");
+export function setupNavigation() {
+  // Selecciona tanto los links de abajo (móvil) como los de arriba (desktop)
+  const navLinks = document.querySelectorAll(".bottom-nav .nav-item, .desktop-nav .nav-link");
 
-  navItems.forEach((item) => {
-    item.addEventListener("click", (e) => {
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
       e.preventDefault();
+      const targetViewId = link.getAttribute("data-target");
 
-      const targetId = item.getAttribute("data-target");
-
-      // Cambiar clase activa en ítems de navegación
-      navItems.forEach((nav) => nav.classList.remove("active"));
-      item.classList.add("active");
-
-      // Ocultar/Mostrar la vista correspondiente
-      views.forEach((view) => {
-        if (view.id === targetId) {
+      // 1. Ocultar todas las vistas y activar solo la seleccionada
+      document.querySelectorAll(".app-view").forEach((view) => {
+        if (view.id === targetViewId) {
           view.classList.remove("hidden");
           view.classList.add("active");
         } else {
@@ -145,8 +140,14 @@ function setupNavigation() {
         }
       });
 
-      // Si el usuario cambia de pestaña, hacer scroll al inicio de la pantalla
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      // 2. Sincronizar la clase "active" en AMBOS menús (móvil y desktop)
+      navLinks.forEach((l) => {
+        if (l.getAttribute("data-target") === targetViewId) {
+          l.classList.add("active");
+        } else {
+          l.classList.remove("active");
+        }
+      });
     });
   });
 }
