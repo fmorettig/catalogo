@@ -2,7 +2,7 @@
 // LÓGICA DEL CARRITO Y WHATSAPP
 // ==========================================================================
 
-const WHATSAPP_NUMBER = "584145045002"; 
+const WHATSAPP_NUMBER = "584140000000"; // Cambia esto por tu número de WhatsApp con código de país (ej: 584140000000)
 let cart = []; // [{ product: {...}, quantity: N }]
 
 export function addToCart(product) {

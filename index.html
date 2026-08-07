@@ -19,41 +19,41 @@
 
 <body>
 
-<!-- ENCABEZADO -->
-<header class="header">
-    <div class="header-container">
-        <div class="brand">
-            <div class="brand-logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                </svg>
+    <!-- ENCABEZADO -->
+    <header class="header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="brand-name" id="store-name">Catalogo Web</h1>
+                    <p class="brand-tagline" id="store-tagline">Vitrina de Productos</p>
+                </div>
             </div>
-            <div>
-                <h1 class="brand-name" id="store-name">Catalogo Web</h1>
-                <p class="brand-tagline" id="store-tagline">Vitrina de Productos</p>
+
+            <!-- NAVEGACIÓN ESCRITORIO -->
+            <nav class="desktop-nav">
+                <a href="#catalogo" class="nav-link active" data-target="view-catalogo">Catálogo</a>
+                <a href="#empresa" class="nav-link" data-target="view-empresa">Empresa</a>
+                <a href="#contacto" class="nav-link" data-target="view-contacto">Contacto</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="btn-cart-header" id="btn-cart-desktop">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="8" cy="21" r="1" />
+                        <circle cx="19" cy="21" r="1" />
+                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                    </svg>
+                    <span>Carrito</span>
+                    <span class="badge-count" id="cart-count">0</span>
+                </button>
             </div>
         </div>
-
-        <!-- NAVEGACIÓN ESCRITORIO (AGREGADO) -->
-        <nav class="desktop-nav">
-            <a href="#catalogo" class="nav-link active" data-target="view-catalogo">Catálogo</a>
-            <a href="#empresa" class="nav-link" data-target="view-empresa">Empresa</a>
-            <a href="#contacto" class="nav-link" data-target="view-contacto">Contacto</a>
-        </nav>
-
-        <div class="header-actions">
-            <button class="btn-cart-header" id="btn-cart-desktop">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="8" cy="21" r="1" />
-                    <circle cx="19" cy="21" r="1" />
-                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-                </svg>
-                <span>Carrito</span>
-                <span class="badge-count" id="cart-count">0</span>
-            </button>
-        </div>
-    </div>
-</header>
+    </header>
 
     <!-- LAYOUT PRINCIPAL -->
     <div class="app-layout">
@@ -152,94 +152,94 @@
 
             </section>
 
-<!-- VISTA: EMPRESA -->
-<section id="view-empresa" class="app-view hidden">
-    <div class="info-card">
-        
-        <!-- ENCABEZADO E IDENTIDAD CORPORATIVA -->
-        <div class="company-header">
-            <div class="company-logo-container">
-                <img src="assets/images/logo-empresa.png" alt="Logo Institucional" class="company-logo" id="company-logo">
-            </div>
-            <div class="company-intro">
-                <h2>Sobre Nosotros</h2>
-                <p id="company-description">
-                    Somos una empresa dedicada a ofrecer productos de la más alta calidad. Nos enfocamos en brindar atención personalizada y entregas rápidas directamente hasta la puerta de tu hogar.
-                </p>
-            </div>
-        </div>
+            <!-- VISTA: EMPRESA -->
+            <section id="view-empresa" class="app-view hidden">
+                <div class="info-card">
+                    
+                    <!-- ENCABEZADO E IDENTIDAD CORPORATIVA -->
+                    <div class="company-header">
+                        <div class="company-logo-container">
+                            <img src="assets/images/logo-empresa.png" alt="Logo Institucional" class="company-logo" id="company-logo">
+                        </div>
+                        <div class="company-intro">
+                            <h2>Sobre Nosotros</h2>
+                            <p id="company-description">
+                                Somos una empresa dedicada a ofrecer productos de la más alta calidad. Nos enfocamos en brindar atención personalizada y entregas rápidas directamente hasta la puerta de tu hogar.
+                            </p>
+                        </div>
+                    </div>
 
-        <hr class="company-divider">
+                    <hr class="company-divider">
 
-        <!-- MISIÓN, VISIÓN Y VALORES -->
-        <div class="company-pillars">
-            <div class="pillar-card">
-                <div class="pillar-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <circle cx="12" cy="12" r="6" />
-                        <circle cx="12" cy="12" r="2" />
-                    </svg>
+                    <!-- MISIÓN, VISIÓN Y VALORES -->
+                    <div class="company-pillars">
+                        <div class="pillar-card">
+                            <div class="pillar-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <circle cx="12" cy="12" r="6" />
+                                    <circle cx="12" cy="12" r="2" />
+                                </svg>
+                            </div>
+                            <h3>Misión</h3>
+                            <p id="company-mission">Ofrecer a nuestros clientes productos excepcionales con un servicio eficiente, garantizando calidad, transparencia y satisfacción en cada pedido.</p>
+                        </div>
+
+                        <div class="pillar-card">
+                            <div class="pillar-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </div>
+                            <h3>Visión</h3>
+                            <p id="company-vision">Ser líderes en la comercialización y distribución de nuestro sector, reconocidos por nuestra innovación digital y excelencia en el servicio al cliente.</p>
+                        </div>
+
+                        <div class="pillar-card">
+                            <div class="pillar-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                            <h3>Valores</h3>
+                            <ul class="values-list" id="company-values">
+                                <li>Compromiso y Responsabilidad</li>
+                                <li>Calidad y Calidez en el servicio</li>
+                                <li>Transparencia e Integridad</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr class="company-divider">
+
+                    <!-- UBICACIÓN Y HORARIOS CON ICONOS SVG -->
+                    <div class="company-features">
+                        <div class="feature-item">
+                            <div class="feature-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                <h4>Ubicación</h4>
+                            </div>
+                            <p id="company-address">Atención en tienda física y envíos a nivel nacional.</p>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg>
+                                <h4>Horarios de Atención</h4>
+                            </div>
+                            <p id="company-hours">Lunes a Sábado: 8:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+
                 </div>
-                <h3>Misión</h3>
-                <p id="company-mission">Ofrecer a nuestros clientes productos excepcionales con un servicio eficiente, garantizando calidad, transparencia y satisfacción en cada pedido.</p>
-            </div>
-
-            <div class="pillar-card">
-                <div class="pillar-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
-                        <circle cx="12" cy="12" r="3" />
-                    </svg>
-                </div>
-                <h3>Visión</h3>
-                <p id="company-vision">Ser líderes en la comercialización y distribución de nuestro sector, reconocidos por nuestra innovación digital y excelencia en el servicio al cliente.</p>
-            </div>
-
-            <div class="pillar-card">
-                <div class="pillar-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                </div>
-                <h3>Valores</h3>
-                <ul class="values-list" id="company-values">
-                    <li>Compromiso y Responsabilidad</li>
-                    <li>Calidad y Calidez en el servicio</li>
-                    <li>Transparencia e Integridad</li>
-                </ul>
-            </div>
-        </div>
-
-        <hr class="company-divider">
-
-        <!-- UBICACIÓN Y HORARIOS CON ICONOS SVG -->
-        <div class="company-features">
-            <div class="feature-item">
-                <div class="feature-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
-                        <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    <h4>Ubicación</h4>
-                </div>
-                <p id="company-address">Atención en tienda física y envíos a nivel nacional.</p>
-            </div>
-
-            <div class="feature-item">
-                <div class="feature-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 14" />
-                    </svg>
-                    <h4>Horarios de Atención</h4>
-                </div>
-                <p id="company-hours">Lunes a Sábado: 8:00 AM - 6:00 PM</p>
-            </div>
-        </div>
-
-    </div>
-</section>
+            </section>
 
             <!-- VISTA: CONTACTO -->
             <section id="view-contacto" class="app-view hidden">
@@ -260,88 +260,88 @@
                 </div>
             </section>
 
-            <!-- PIE DE PÁGINA Y CRÉDITO -->
-            <footer class="app-footer">
-                <div class="footer-content">
-                    <p class="copyright">&copy; 2026 Todos los derechos reservados.</p>
-                    <div class="developer-credit">
-                        <span>Desarrollado por</span>
-                        <a href="#" target="_blank" class="mti-brand" title="MTI">
-                            <img src="assets/images/mti.png" alt="MTI Logo" class="mti-logo-img" height="18">
-                        </a>
+            <!-- VISTA: DETALLE DE COTIZACIÓN (PARA IMPRESIÓN/DESPACHO) -->
+            <section id="view-cotizacion" class="app-view hidden print-area">
+                <div class="invoice-card">
+                    <!-- MEMBRETE HORIZONTAL SUPERIOR -->
+                    <header class="invoice-header">
+                        <div class="invoice-brand">
+                            <img id="invoice-logo" src="assets/images/mti.png" alt="Logo" class="invoice-logo">
+                            <div class="brand-details">
+                                <h2 id="invoice-store-name">NOMBRE DE LA EMPRESA</h2>
+                                <p id="invoice-store-phone">Contacto: +58 414-0000000</p>
+                            </div>
+                        </div>
+                        
+                        <div class="invoice-meta">
+                            <h3>COTIZACIÓN / ORDEN</h3>
+                            <p><strong>N° Orden:</strong> <span id="invoice-id">ORD-4666</span></p>
+                            <p><strong>Fecha:</strong> <span id="invoice-date">06/08/2026</span></p>
+                        </div>
+                    </header>
+
+                    <hr class="invoice-divider">
+
+                    <!-- TABLA DE PRODUCTOS A ANCHO COMPLETO -->
+                    <table class="invoice-table">
+                        <thead>
+                            <tr>
+                                <th class="col-cant">Cant.</th>
+                                <th class="col-desc">Producto / Descripción</th>
+                                <th class="col-precio">P. Unitario</th>
+                                <th class="col-subtotal">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoice-items-body">
+                            <!-- Se llena dinámicamente -->
+                        </tbody>
+                    </table>
+
+                    <!-- PIE CON TOTAL -->
+                    <footer class="invoice-footer">
+                        <div class="invoice-total">
+                            <span>Total Estimado: </span>
+                            <strong id="invoice-total-amount">$ 0</strong>
+                        </div>
+                    </footer>
+
+                    <!-- BOTÓN ACCIÓN (NO SE IMPRIME) -->
+                    <div class="invoice-actions no-print">
+                        <button id="btn-print-invoice" type="button" class="btn-action btn-print" onclick="window.print()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                <rect x="6" y="14" width="12" height="8"></rect>
+                            </svg>
+                            Imprimir / Guardar en PDF
+                        </button>
                     </div>
                 </div>
-            </footer>
-
-            <!-- BOTÓN FLOTANTE MÓVIL (ABRE CARRITO) -->
-            <div class="floating-cart-bar">
-                <button class="btn-whatsapp-cart" id="btn-cart-mobile">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
-                    <span>Ver carrito (<strong id="mobile-cart-count">0</strong>) - Consultar por WhatsApp</span>
-                </button>
-            </div>
-
-<!-- VISTA: DETALLE DE COTIZACIÓN (PARA IMPRESIÓN/DESPACHO) -->
-<section id="view-cotizacion" class="app-view hidden print-area">
-    <div class="invoice-card">
-        <!-- MEMBRETE HORIZONTAL SUPERIOR -->
-        <header class="invoice-header">
-            <div class="invoice-brand">
-                <img id="invoice-logo" src="assets/images/mti.png" alt="Logo" class="invoice-logo">
-                <div class="brand-details">
-                    <h2 id="invoice-store-name">NOMBRE DE LA EMPRESA</h2>
-                    <p id="invoice-store-phone">Contacto: +58 414-0000000</p>
-                </div>
-            </div>
-            
-            <div class="invoice-meta">
-                <h3>COTIZACIÓN / ORDEN</h3>
-                <p><strong>N° Orden:</strong> <span id="invoice-id">ORD-4666</span></p>
-                <p><strong>Fecha:</strong> <span id="invoice-date">06/08/2026</span></p>
-            </div>
-        </header>
-
-        <hr class="invoice-divider">
-
-        <!-- TABLA DE PRODUCTOS A ANCHO COMPLETO -->
-        <table class="invoice-table">
-            <thead>
-                <tr>
-                    <th class="col-cant">Cant.</th>
-                    <th class="col-desc">Producto / Descripción</th>
-                    <th class="col-precio">P. Unitario</th>
-                    <th class="col-subtotal">Subtotal</th>
-                </tr>
-            </thead>
-            <tbody id="invoice-items-body">
-                <!-- Se llena dinámicamente -->
-            </tbody>
-        </table>
-
-        <!-- PIE CON TOTAL -->
-        <footer class="invoice-footer">
-            <div class="invoice-total">
-                <span>Total Estimado: </span>
-                <strong id="invoice-total-amount">$ 0</strong>
-            </div>
-        </footer>
-
-        <!-- BOTÓN ACCIÓN (NO SE IMPRIME) -->
-        <div class="invoice-actions no-print">
-            <button id="btn-print-invoice" type="button" class="btn-print" onclick="window.print()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                    <rect x="6" y="14" width="12" height="8"></rect>
-                </svg>
-                Imprimir / Guardar en PDF
-            </button>
-        </div>
-    </div>
-</section>
+            </section>
         </main>
+    </div>
+
+    <!-- PIE DE PÁGINA Y CRÉDITO GLOBAL -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p class="copyright">&copy; 2026 Todos los derechos reservados.</p>
+            <div class="developer-credit">
+                <span>Desarrollado por</span>
+                <a href="#" target="_blank" class="mti-brand" title="MTI">
+                    <img src="assets/images/mti.png" alt="MTI Logo" class="mti-logo-img" height="18">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE MÓVIL (ABRE CARRITO) -->
+    <div class="floating-cart-bar">
+        <button class="btn-whatsapp-cart" id="btn-cart-mobile">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <span>Ver carrito (<strong id="mobile-cart-count">0</strong>) - Consultar por WhatsApp</span>
+        </button>
     </div>
 
     <!-- NAVEGACIÓN INFERIOR MÓVIL -->

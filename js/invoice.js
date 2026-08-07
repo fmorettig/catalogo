@@ -6,7 +6,7 @@
 export const INVOICE_CONFIG = {
   companyName: "NOMBRE DE LA EMPRESA",
   rif: "J-00000000-0",
-  phone: "+58 414-5045002",
+  phone: "+58 414-0000000",
   address: "Barquisimeto / Cabudare, Lara",
   logoUrl: "assets/images/logo-empresa.png", // Asegúrate de tener esta ruta o cámbiala
   currencyLocale: "es-CO",
