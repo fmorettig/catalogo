@@ -1246,47 +1246,71 @@ body {
     }
 }
 
-/* ==========================================
-   ESTILOS DE VISTA DE COTIZACIÓN E IMPRESIÓN
-   ========================================== */
+/* --- ESTILOS GENERALES DE LA COTIZACIÓN --- */
 .invoice-card {
-    background: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color, #e5e7eb);
-    max-width: 800px;
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
+    background: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .invoice-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
 }
 
 .invoice-brand {
     display: flex;
-    gap: 16px;
     align-items: center;
+    gap: 15px;
 }
 
 .invoice-logo {
-    max-width: 90px;
-    height: auto;
+    max-height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-details h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #1a365d;
+}
+
+.brand-details p {
+    margin: 4px 0 0 0;
+    color: #4a5568;
 }
 
 .invoice-meta {
     text-align: right;
 }
 
-.invoice-divider {
-    border: 0;
-    border-top: 2px solid var(--border-color, #e5e7eb);
-    margin: 20px 0;
+.invoice-meta h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.2rem;
+    color: #2b6cb0;
 }
 
+.invoice-meta p {
+    margin: 2px 0;
+    font-size: 0.9rem;
+}
+
+.invoice-divider {
+    border: 0;
+    border-top: 2px solid #e2e8f0;
+    margin: 15px 0 20px 0;
+}
+
+/* TABLA A ANCHO COMPLETO */
 .invoice-table {
-    width: 100%;
+    width: 100% !important;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
@@ -1294,65 +1318,70 @@ body {
 .invoice-table th, 
 .invoice-table td {
     padding: 10px 12px;
-    border-bottom: 1px solid #e5e7eb;
     text-align: left;
+    border-bottom: 1px solid #edf2f7;
 }
 
 .invoice-table th {
-    background-color: #f9fafb;
-    font-size: 0.85rem;
-    text-transform: uppercase;
+    background-color: #f7fafc;
+    font-weight: 600;
+    color: #2d3748;
 }
+
+/* Distribución de columnas */
+.col-cant { width: 10%; text-align: center !important; }
+.col-desc { width: 60%; }
+.col-precio { width: 15%; text-align: right !important; }
+.col-subtotal { width: 15%; text-align: right !important; }
+
+.invoice-table td:nth-child(1) { text-align: center; }
+.invoice-table td:nth-child(3),
+.invoice-table td:nth-child(4) { text-align: right; }
 
 .invoice-footer {
     display: flex;
     justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.invoice-total {
     font-size: 1.2rem;
-}
-
-.invoice-actions {
-    margin-top: 24px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.btn-print {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: var(--primary-color, #2563eb);
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
+    padding: 10px 15px;
+    background: #f7fafc;
     border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
 }
 
-/* --- REGLAS EXCLUSIVAS DE IMPRESIÓN --- */
+/* --- CONFIGURACIÓN DE IMPRESIÓN Y HOJA HORIZONTAL --- */
+@page {
+    size: landscape; /* Fuerza orientación horizontal */
+    margin: 10mm;
+}
+
 @media print {
-    /* Ocultar elementos de la interfaz general */
-    .header, .sidebar, .bottom-nav, .floating-cart-bar, .no-print, .app-footer {
-        display: none !important;
-    }
-    
-    body, .app-layout, .main-content {
-        background: #fff !important;
-        padding: 0 !important;
-        margin: 0 !important;
+    body * {
+        visibility: hidden;
     }
 
-    #view-cotizacion {
-        display: block !important;
+    .print-area, .print-area * {
+        visibility: visible;
+    }
+
+    .print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100% !important;
+    }
+
+    .no-print {
+        display: none !important;
     }
 
     .invoice-card {
-        border: none !important;
-        padding: 0 !important;
-        box-shadow: none !important;
+        padding: 0;
+        box-shadow: none;
     }
 }
-
 /* Navegación Desktop */
 .desktop-nav {
   display: flex;

@@ -4,7 +4,7 @@
 
 // Configuración general del formato (Ajusta aquí logos y datos)
 export const INVOICE_CONFIG = {
-  companyName: "Mi Empresa MTI",
+  companyName: "NOMBRE DE LA EMPRESA",
   rif: "J-00000000-0",
   phone: "+58 414-5045002",
   address: "Barquisimeto / Cabudare, Lara",

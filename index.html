@@ -286,30 +286,33 @@
 <!-- VISTA: DETALLE DE COTIZACIÓN (PARA IMPRESIÓN/DESPACHO) -->
 <section id="view-cotizacion" class="app-view hidden print-area">
     <div class="invoice-card">
-        <div class="invoice-header">
+        <!-- MEMBRETE HORIZONTAL SUPERIOR -->
+        <header class="invoice-header">
             <div class="invoice-brand">
                 <img id="invoice-logo" src="assets/images/mti.png" alt="Logo" class="invoice-logo">
-                <div>
-                    <h2 id="invoice-store-name">Empresa</h2>
-                    <p id="invoice-store-phone">Contacto: +58 000-0000000</p>
+                <div class="brand-details">
+                    <h2 id="invoice-store-name">NOMBRE DE LA EMPRESA</h2>
+                    <p id="invoice-store-phone">Contacto: +58 414-0000000</p>
                 </div>
             </div>
+            
             <div class="invoice-meta">
                 <h3>COTIZACIÓN / ORDEN</h3>
-                <p><strong>N° Orden:</strong> <span id="invoice-id">ORD-0000</span></p>
-                <p><strong>Fecha:</strong> <span id="invoice-date">--/--/----</span></p>
+                <p><strong>N° Orden:</strong> <span id="invoice-id">ORD-4666</span></p>
+                <p><strong>Fecha:</strong> <span id="invoice-date">06/08/2026</span></p>
             </div>
-        </div>
+        </header>
 
         <hr class="invoice-divider">
 
+        <!-- TABLA DE PRODUCTOS A ANCHO COMPLETO -->
         <table class="invoice-table">
             <thead>
                 <tr>
-                    <th>Cant.</th>
-                    <th>Producto / Descripción</th>
-                    <th>P. Unitario</th>
-                    <th>Subtotal</th>
+                    <th class="col-cant">Cant.</th>
+                    <th class="col-desc">Producto / Descripción</th>
+                    <th class="col-precio">P. Unitario</th>
+                    <th class="col-subtotal">Subtotal</th>
                 </tr>
             </thead>
             <tbody id="invoice-items-body">
@@ -317,15 +320,17 @@
             </tbody>
         </table>
 
-        <div class="invoice-footer">
+        <!-- PIE CON TOTAL -->
+        <footer class="invoice-footer">
             <div class="invoice-total">
                 <span>Total Estimado: </span>
                 <strong id="invoice-total-amount">$ 0</strong>
             </div>
-        </div>
+        </footer>
 
+        <!-- BOTÓN ACCIÓN (NO SE IMPRIME) -->
         <div class="invoice-actions no-print">
-            <button id="btn-print-invoice" type="button" class="btn-print">
+            <button id="btn-print-invoice" type="button" class="btn-print" onclick="window.print()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6 9 6 2 18 2 18 9"></polyline>
                     <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
@@ -336,7 +341,6 @@
         </div>
     </div>
 </section>
-
         </main>
     </div>
 
