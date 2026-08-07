@@ -1256,6 +1256,18 @@ body {
     box-sizing: border-box;
 }
 
+.btn-print {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--primary-color, #2563eb);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
 .invoice-header {
     display: flex;
     justify-content: space-between;
